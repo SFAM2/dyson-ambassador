@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dyson Ambassador Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ============================
+           RESET & BASE
+        ============================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --navy: #0a0f2c;
+      --navy-light: #1a1f42;
+      --orange: #f47a34;
+      --orange-dim: #d95f1e;
+      --orange-soft: #fef0e8;
+      --purple: #7b61ff;
+      --purple-soft: #f0edff;
+      --text: #14162b;
+      --muted: #6b7087;
+      --muted-light: #9499ad;
+      --line: #e6e6ec;
+      --line-bold: #d0d0dc;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+    }
+
+    body {
+      font-family: "Karla", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .label-mono {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 14px;
+    }
+
+    .label-mono span {
+      color: var(--orange);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 32px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: "Karla", sans-serif;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(244,122,52,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(244,122,52,0.35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line-bold);
+    }
+
+    .btn-ghost:hover {
+      background: var(--surface);
+      border-color: var(--muted-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid var(--line-bold);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(244,122,52,0.08);
+    }
+
+    /* ============================
+           HERO
+        ============================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .hero-orbs {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.08;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .orb:nth-child(1) {
+      width: 600px;
+      height: 600px;
+      background: var(--purple);
+      top: -200px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      background: var(--orange);
+      bottom: -100px;
+      left: -100px;
+      animation-delay: -7s;
+    }
+
+    .orb:nth-child(3) {
+      width: 300px;
+      height: 300px;
+      background: var(--purple);
+      top: 50%;
+      left: 50%;
+      animation-delay: -14s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(60px, -40px) scale(1.1); }
+      50% { transform: translate(-30px, 60px) scale(0.9); }
+      75% { transform: translate(40px, 30px) scale(1.05); }
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 120px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      color: var(--muted);
+      background: var(--surface);
+      margin-bottom: 32px;
+      animation: fadeSlideUp 0.8s ease 0.2s both;
+    }
+
+    .hero-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 6vw, 88px);
+      max-width: 620px;
+      margin-bottom: 28px;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      color: var(--navy);
+      animation: fadeSlideUp 0.8s ease 0.3s both;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--orange) 0%, #f7b07a 50%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 480px;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 40px;
+      animation: fadeSlideUp 0.8s ease 0.4s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeSlideUp 0.8s ease 0.5s both;
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-top: 44px;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+      animation: fadeSlideUp 0.8s ease 0.6s both;
+    }
+
+    .hero-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-stat-item strong {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    .hero-stat-item span {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+    }
+
+    /* Hero card */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeSlideUp 0.8s ease 0.5s both;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-card-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1 / 0.85;
+    }
+
+    .hero-shapes {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-shape {
+      position: absolute;
+      border-radius: 20px;
+      animation: shapeDrift 12s ease-in-out infinite;
+    }
+
+    .hero-shape.h1 {
+      width: 140px; height: 140px;
+      top: -30px; left: -30px;
+      background: linear-gradient(135deg, var(--orange-soft), transparent);
+      border: 1px solid rgba(244,122,52,0.12);
+      animation-delay: 0s;
+    }
+
+    .hero-shape.h2 {
+      width: 70px; height: 70px;
+      top: 50px; right: -35px;
+      background: linear-gradient(135deg, var(--purple-soft), transparent);
+      border: 1px solid rgba(123,97,255,0.1);
+      border-radius: 50%;
+      animation-delay: -3s;
+    }
+
+    .hero-shape.h3 {
+      width: 180px; height: 180px;
+      bottom: -50px; left: -50px;
+      background: linear-gradient(135deg, rgba(123,97,255,0.04), transparent);
+      border: 1px solid rgba(123,97,255,0.06);
+      animation-delay: -6s;
+    }
+
+    .hero-shape.h4 {
+      width: 100px; height: 100px;
+      bottom: 30px; right: -30px;
+      background: linear-gradient(135deg, var(--orange-soft), transparent);
+      border: 1px solid rgba(244,122,52,0.08);
+      border-radius: 50%;
+      animation-delay: -9s;
+    }
+
+    @keyframes shapeDrift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(15px, -20px) rotate(5deg); }
+      66% { transform: translate(-10px, 15px) rotate(-3deg); }
+    }
+
+    .hero-card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+      transition: all 0.4s ease;
+    }
+
+    .hero-card:hover {
+      border-color: var(--line-bold);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.06);
+    }
+
+    .hero-card .dyson-logo {
+      text-align: center;
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: var(--navy);
+      margin-bottom: 28px;
+    }
+
+    .hero-card .product-row {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      gap: 36px;
+      min-height: 170px;
+    }
+
+    .hero-card .product {
+      border-radius: 14px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-card .product:hover {
+      transform: translateY(-6px);
+    }
+
+    .hero-card .product.one {
+      width: 56px;
+      height: 148px;
+      background: linear-gradient(180deg, #6a7ae0 0%, #2a4394 100%);
+      border-radius: 12px 12px 18px 18px;
+    }
+
+    .hero-card .product.one::before {
+      content: "";
+      position: absolute;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      top: -26px;
+      left: -3px;
+      background: radial-gradient(circle at 40% 30%, #f9f7f0 8px, #f39b47 12px, #7d7f91 20px, #404556 26px);
+      border: 2px solid #d0d0dc;
+      box-shadow: 0 0 30px rgba(244,122,52,0.08);
+    }
+
+    .hero-card .product.two {
+      width: 90px;
+      height: 164px;
+      background: linear-gradient(180deg, #fafafa 0% 64%, #b58f6c 64% 100%);
+      border: 1px solid #d8d8e0;
+      border-radius: 10px 10px 18px 18px;
+    }
+
+    .hero-card .product.two::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 25px;
+      width: 40px;
+      height: 104px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #edf0f4, #dce0e8);
+      border: 2px solid rgba(0,0,0,0.04);
+    }
+
+    .hero-card .product.three {
+      width: 76px;
+      height: 152px;
+      transform: rotate(24deg);
+      background: linear-gradient(180deg,
+        #30d4e6 0% 10%,
+        #bfc4cc 10% 46%,
+        #6d7687 46% 62%,
+        #cb3d39 62% 66%,
+        #aeb4bf 66% 100%
+      );
+      border-radius: 12px;
+    }
+
+    /* ============================
+           ABOUT
+        ============================ */
+    .about {
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .mock-card-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      perspective: 800px;
+    }
+
+    .mock-card {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(150deg, #f0f0f5 0%, #e8e8f0 100%);
+      border-radius: var(--radius-xl);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+      border: 1px solid var(--line);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+    }
+
+    .mock-card:hover {
+      transform: rotateY(-3deg) rotateX(2deg) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+
+    .mock-card .dyson-logo {
+      font-size: 88px;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      color: var(--muted-light);
+      opacity: 0.4;
+    }
+
+    .mock-deco {
+      position: absolute;
+      border-radius: 12px;
+    }
+
+    .mock-deco.a {
+      width: 28px; height: 56px;
+      left: -22px; top: 44px;
+      background: var(--purple-soft);
+    }
+
+    .mock-deco.b {
+      width: 36px; height: 36px;
+      left: -22px; bottom: 120px;
+      border-radius: 50%;
+      background: var(--orange-soft);
+    }
+
+    .mock-deco.c {
+      width: 100px; height: 80px;
+      right: -42px; bottom: 60px;
+      background: rgba(123,97,255,0.04);
+    }
+
+    .mock-card-label {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .section-title {
+      font-size: clamp(38px, 4vw, 62px);
+      margin-bottom: 28px;
+      color: var(--navy);
+    }
+
+    .section-title .gradient-text {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 520px;
+    }
+
+    .about-text p + p {
+      margin-top: 24px;
+    }
+
+    /* ============================
+           CONDITIONS
+        ============================ */
+    .conditions {
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .conditions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .light-title {
+      font-size: clamp(36px, 3.5vw, 58px);
+      margin-bottom: 32px;
+      color: var(--navy);
+    }
+
+    .light-title .gradient-text {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subhead {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+
+    .subhead-sm {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted-light);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      font-family: "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    .conditions-list {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 36px;
+    }
+
+    .conditions-list li {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      color: #2c3143;
+      line-height: 1.6;
+      transition: transform 0.2s ease;
+    }
+
+    .conditions-list li:hover {
+      transform: translateX(4px);
+    }
+
+    .conditions-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--purple-soft);
+      border: 1px solid rgba(123,97,255,0.12);
+      transition: all 0.3s ease;
+    }
+
+    .conditions-list li:hover::before {
+      background: rgba(123,97,255,0.15);
+      border-color: rgba(123,97,255,0.25);
+    }
+
+    .conditions-list li::after {
+      content: "✓";
+      position: absolute;
+      left: 7px;
+      top: 2px;
+      font-size: 12px;
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .conditions-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .photo-box {
+      position: relative;
+      max-width: 420px;
+      perspective: 800px;
+    }
+
+    .photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(140deg, #efece8 0%, #ddd6ca 100%);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      transition: transform 0.4s ease;
+    }
+
+    .photo:hover {
+      transform: rotateY(3deg) rotateX(-2deg) scale(1.02);
+    }
+
+    .photo::before {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 260px;
+      background: linear-gradient(180deg, #d8c4b0, #c4ae96);
+      border-radius: 60px;
+      right: 44px;
+      top: 48px;
+      transform: rotate(24deg);
+      opacity: 0.5;
+    }
+
+    .photo::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 84px;
+      background: #1e2433;
+      border-radius: 18px;
+      left: 72px;
+      top: 24px;
+      transform: rotate(18deg);
+      box-shadow: inset 0 0 0 5px #c99055;
+      opacity: 0.8;
+    }
+
+    .small-shape {
+      position: absolute;
+      border-radius: 12px;
+    }
+
+    .small-shape.x1 {
+      width: 48px; height: 76px;
+      left: -32px; top: 84px;
+      background: linear-gradient(180deg, #e6e0ff, #d5ccff);
+    }
+
+    .small-shape.x2 {
+      width: 28px; height: 28px;
+      left: -24px; bottom: 86px;
+      border-radius: 50%;
+      background: rgba(244,122,52,0.1);
+    }
+
+    .small-shape.x3 {
+      width: 34px; height: 100px;
+      right: -26px; top: 96px;
+      background: rgba(221,216,239,0.6);
+    }
+
+    .small-shape.x4 {
+      width: 44px; height: 66px;
+      right: -36px; bottom: 48px;
+      background: linear-gradient(180deg, #cbbcf7, #b8a5f5);
+    }
+
+    /* ============================
+           INFO BAR
+        ============================ */
+    .info-bar {
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .info-title {
+      font-size: clamp(30px, 3.5vw, 52px);
+      margin-bottom: 60px;
+      max-width: 600px;
+      color: var(--navy);
+    }
+
+    .info-title .gradient-text {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .info-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--orange), transparent);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .info-card:hover {
+      background: var(--surface);
+      border-color: var(--line-bold);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
+    }
+
+    .info-card-label {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 18px;
+    }
+
+    .info-card .flag {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .info-card .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .info-card .chip {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .info-card .chip:hover {
+      background: var(--orange-soft);
+      border-color: rgba(244,122,52,0.2);
+      color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    /* ============================
+           JOIN
+        ============================ */
+    .join {
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .join-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    /* Step card */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      max-width: 520px;
+      min-height: 660px;
+      padding: 60px 52px;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+    }
+
+    .step-card .tiny-dot {
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .step-card .tiny-dot.d1 {
+      width: 18px; height: 18px;
+      top: 56px; left: 80px;
+      background: var(--purple-soft);
+    }
+
+    .step-card .tiny-dot.d2 {
+      width: 8px; height: 8px;
+      top: 140px; left: 200px;
+      background: rgba(244,122,52,0.3);
+    }
+
+    .step-card .tiny-dot.d3 {
+      width: 12px; height: 12px;
+      top: 58px; right: 104px;
+      background: var(--orange-soft);
+    }
+
+    .step-card .tiny-dot.d4 {
+      width: 22px; height: 22px;
+      top: 208px; left: 42px;
+      background: rgba(123,97,255,0.06);
+    }
+
+    .step-card .tiny-dot.d5 {
+      width: 10px; height: 10px;
+      top: 272px; right: 140px;
+      background: rgba(244,122,52,0.2);
+    }
+
+    .step-card-header {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 60px;
+    }
+
+    .step-card-header .label-mono {
+      margin-bottom: 14px;
+    }
+
+    .step-card-header h3 {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .step-card-header h3 span {
+      display: block;
+      font-size: 68px;
+      font-weight: 700;
+      margin-top: 8px;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 44px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: var(--line);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .step:hover {
+      transform: translateX(4px);
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--bg);
+      color: var(--muted-light);
+      position: relative;
+      z-index: 2;
+      transition: all 0.4s ease;
+      border: 1px solid var(--line);
+    }
+
+    .step.active .step-number {
+      background: linear-gradient(135deg, var(--orange), var(--orange-dim));
+      color: #fff;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 8px rgba(244,122,52,0.1);
+    }
+
+    .step-text {
+      color: var(--muted-light);
+      font-size: 17px;
+      font-weight: 500;
+      transition: all 0.4s ease;
+    }
+
+    .step.active .step-text {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* CTA */
+    .cta-content {
+      max-width: 520px;
+    }
+
+    .cta-content h4 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--navy);
+    }
+
+    .cta-content p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .cta-content h4 + p {
+      margin-bottom: 32px;
+    }
+
+    .cta-content h4:not(:first-child) {
+      margin-top: 56px;
+    }
+
+    .cta-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 16px 0 44px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================
+           FOOTER
+        ============================ */
+    footer {
+      text-align: center;
+      padding: 32px 16px 44px;
+      color: var(--muted-light);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    footer span {
+      color: var(--orange);
+    }
+
+    /* ============================
+           RESPONSIVE
+        ============================ */
+    @media (max-width: 1024px) {
+      .hero .container,
+      .about-grid,
+      .conditions-grid,
+      .join-grid {
+        gap: 60px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero .container,
+      .about-grid,
+      .conditions-grid,
+      .join-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero .container {
+        padding: 80px 0;
+      }
+
+      .hero-card-wrap {
+        max-width: 440px;
+      }
+
+      .mock-card {
+        max-width: 380px;
+      }
+
+      .photo-box {
+        max-width: 380px;
+      }
+
+      .step-card {
+        max-width: 100%;
+        min-height: auto;
+      }
+
+      .cta-content {
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .cta-row {
+        justify-content: center;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 28px, 1200px);
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .hero .container {
+        padding: 60px 0;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero-stat {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .hero-stat-item strong {
+        font-size: 26px;
+      }
+
+      .hero-card-wrap {
+        max-width: 100%;
+      }
+
+      .hero-card {
+        padding: 32px;
+      }
+
+      .hero-card .dyson-logo {
+        font-size: 50px;
+      }
+
+      .hero-card .product-row {
+        gap: 24px;
+        min-height: 130px;
+      }
+
+      .hero-card .product.one { width: 42px; height: 120px; }
+      .hero-card .product.two { width: 68px; height: 134px; }
+      .hero-card .product.three { width: 58px; height: 124px; }
+
+      .hero-card .product.one::before {
+        width: 48px;
+        height: 48px;
+        top: -20px;
+      }
+
+      .hero-card .product.two::before {
+        width: 32px;
+        height: 86px;
+        left: 18px;
+        top: 16px;
+      }
+
+      .mock-card .dyson-logo {
+        font-size: 60px;
+      }
+
+      .step-card {
+        padding: 44px 28px;
+      }
+
+      .step-card-header h3 span {
+        font-size: 50px;
+      }
+
+      .cta-content h4 {
+        font-size: 26px;
+      }
+
+      .info-title {
+        font-size: 26px;
+      }
+
+      .info-card {
+        padding: 32px 28px;
+      }
+
+      .hero-shape.h1 { width: 90px; height: 90px; top: -20px; left: -20px; }
+      .hero-shape.h3 { width: 120px; height: 120px; bottom: -30px; left: -30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-orbs">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
+    </div>
+
+    <div class="container">
+      <div>
+        <div class="hero-badge">Now accepting applications</div>
+        <h1>JOIN OUR <span class="gradient-text">AMBASSADOR</span> PROGRAM</h1>
+        <p>
+          Grow your influence, collaborate with our brand, and benefit from
+          exclusive perks.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">Apply to the program</a>
+          <a href="#" class="btn btn-ghost">Learn more</a>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-item">
+            <strong>200+</strong>
+            <span>Active ambassadors</span>
+          </div>
+          <div class="hero-stat-item">
+            <strong>15</strong>
+            <span>Countries</span>
+          </div>
+          <div class="hero-stat-item">
+            <strong>4.9★</strong>
+            <span>Avg. rating</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-wrap">
+          <div class="hero-shapes">
+            <div class="hero-shape h1"></div>
+            <div class="hero-shape h2"></div>
+            <div class="hero-shape h3"></div>
+            <div class="hero-shape h4"></div>
+          </div>
+          <div class="hero-card">
+            <div class="dyson-logo">dyson</div>
+            <div class="product-row">
+              <div class="product one"></div>
+              <div class="product two"></div>
+              <div class="product three"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about">
+    <div class="container about-grid">
+      <div class="mock-card-wrap">
+        <div class="mock-card">
+          <div class="mock-deco a"></div>
+          <div class="mock-deco b"></div>
+          <div class="mock-deco c"></div>
+          <div class="dyson-logo">dyson</div>
+          <div class="mock-card-label">Since 1993</div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="label-mono"><span>//</span> About</div>
+        <h2 class="section-title">THE <span class="gradient-text">PROGRAM</span></h2>
+        <div class="about-text">
+          <p>
+            Dyson is one of the most inventive technology brands in the world,
+            recognized for its design, engineering, and high-performance products.
+            Since its founding in 1993 in the United Kingdom, the brand has
+            expanded globally and built a strong reputation for premium consumer
+            innovation.
+          </p>
+          <p>
+            This ambassador program is designed for creators who want to showcase
+            products naturally, share authentic opinions, and collaborate on
+            high-quality branded content. Participants gain exclusive
+            opportunities while helping present the Dyson ecosystem in a clean,
+            credible, and aspirational way.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONDITIONS ========== -->
+  <section class="conditions">
+    <div class="container conditions-grid">
+      <div>
+        <div class="label-mono"><span>//</span> Guidelines</div>
+        <h2 class="light-title"><span class="gradient-text">PARTICIPATION</span> CONDITIONS</h2>
+        <div class="subhead">Do's & Don'ts</div>
+        <div class="subhead-sm">Do's ✓</div>
+        <ul class="conditions-list">
+          <li>Demonstrate products clearly and highlight real problems they solve.</li>
+          <li>Avoid showing competing products or unrelated visible branding.</li>
+          <li>Ensure Dyson products appear in at least 50% of the content time.</li>
+          <li>Keep the style natural, authentic, and aligned with your personality.</li>
+          <li>Share honest feedback while maintaining a premium presentation.</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Apply to the program</a>
+      </div>
+
+      <div class="conditions-visual">
+        <div class="photo-box">
+          <div class="small-shape x1"></div>
+          <div class="small-shape x2"></div>
+          <div class="small-shape x3"></div>
+          <div class="small-shape x4"></div>
+          <div class="photo"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INFO BAR ========== -->
+  <section class="info-bar">
+    <div class="container">
+      <div class="label-mono"><span>//</span> Eligibility</div>
+      <h2 class="info-title"><span class="gradient-text">PARTICIPATION</span> CONDITIONS</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-label">Eligible countries</div>
+          <div class="flag">🇫🇷</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-label">Community size</div>
+          <div class="chips">
+            <span class="chip">Middle, 30k &lt; 100k</span>
+            <span class="chip">Micro, 10k &lt; 30k</span>
+            <span class="chip">Nano, 1k &lt; 10k</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-label">Activity categories</div>
+          <div class="chips">
+            <span class="chip">Sport</span>
+            <span class="chip">Santé</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOIN ========== -->
+  <section class="join">
+    <div class="container join-grid">
+      <div class="step-card">
+        <span class="tiny-dot d1"></span>
+        <span class="tiny-dot d2"></span>
+        <span class="tiny-dot d3"></span>
+        <span class="tiny-dot d4"></span>
+        <span class="tiny-dot d5"></span>
+
+        <div class="step-card-header">
+          <div class="label-mono"><span>//</span> Steps</div>
+          <h3>Join our <span>Program</span></h3>
+        </div>
+
+        <div class="timeline">
+          <div class="step active">
+            <div class="step-number">01</div>
+            <div class="step-text">Registration</div>
+          </div>
+          <div class="step">
+            <div class="step-number">02</div>
+            <div class="step-text">Personal information</div>
+          </div>
+          <div class="step">
+            <div class="step-number">03</div>
+            <div class="step-text">Profile</div>
+          </div>
+          <div class="step">
+            <div class="step-number">04</div>
+            <div class="step-text">Participation Conditions</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-content">
+        <div class="label-mono"><span>//</span> Get started</div>
+
+        <h4>Do you already have an account on the Shop My Influence app?</h4>
+        <p>
+          If yes, you can log in using the button below. This will allow you to
+          apply directly from the application without having to fill out the
+          application form.
+        </p>
+        <div class="cta-row">
+          <a href="#" class="btn btn-outline">Sign in</a>
+        </div>
+
+        <div class="cta-divider"></div>
+
+        <h4>I don't have an account on the Shop My Influence app</h4>
+        <p>
+          Your Shop My Influence account will be automatically created, and you
+          will receive an email if your application is accepted.
+        </p>
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026, Made with <span>&#9829;</span> by Shop My Influence
+  </footer>
+
+</body>
+</html>
