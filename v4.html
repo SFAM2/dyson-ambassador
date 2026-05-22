@@ -32,6 +32,7 @@
       --muted-light: #9499ad;
       --line: #e6e6ec;
       --line-bold: #d0d0dc;
+      --radius-sm: 12px;
       --radius: 16px;
       --radius-lg: 24px;
       --radius-xl: 32px;
@@ -598,12 +599,175 @@
     }
 
     /* ============================
+           PLATFORMS
+        ============================ */
+    .platforms {
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platforms::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(244,122,52,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .platforms-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 52px;
+    }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .platform-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      padding: 32px 18px 28px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .platform-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(255,255,255,0.6));
+      pointer-events: none;
+    }
+
+    .platform-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--color), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .platform-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: transparent;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.07),
+        0 0 0 1px var(--color);
+    }
+
+    .platform-card:hover::after {
+      opacity: 1;
+    }
+
+    .platform-icon {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 12px;
+      transition: all 0.4s ease;
+    }
+
+    .platform-card:hover .platform-icon {
+      border-color: var(--color);
+      box-shadow: 0 0 0 4px rgba(from var(--color) r g b / 0.08);
+    }
+
+    .platform-icon svg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    .platform-card:hover .platform-icon svg {
+      transform: scale(1.1);
+    }
+
+    .platform-card .platform-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    .platform-card .platform-type {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted-light);
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      transition: all 0.3s ease;
+    }
+
+    .platform-card:hover .platform-type {
+      background: var(--color);
+      border-color: var(--color);
+      color: #fff;
+    }
+
+    .platform-card .platform-metric {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-top: 4px;
+    }
+
+    .platform-card .platform-metric-sub {
+      font-size: 11px;
+      color: var(--muted-light);
+      font-weight: 400;
+      margin-top: -2px;
+    }
+
+    /* ============================
            CONDITIONS
         ============================ */
     .conditions {
       background: var(--bg);
       position: relative;
       overflow: hidden;
+    }
+
+    .conditions::before {
+      content: "";
+      position: absolute;
+      bottom: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(123,97,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .conditions-grid {
@@ -615,8 +779,9 @@
 
     .light-title {
       font-size: clamp(36px, 3.5vw, 58px);
-      margin-bottom: 32px;
+      margin-bottom: 12px;
       color: var(--navy);
+      letter-spacing: -0.025em;
     }
 
     .light-title .gradient-text {
@@ -626,69 +791,68 @@
       background-clip: text;
     }
 
-    .subhead {
-      font-weight: 700;
-      font-size: 18px;
-      margin-bottom: 4px;
-      color: var(--navy);
-    }
-
-    .subhead-sm {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted-light);
-      letter-spacing: 0.05em;
-      margin-bottom: 20px;
-      font-family: "DM Mono", monospace;
-      text-transform: uppercase;
-    }
-
-    .conditions-list {
-      list-style: none;
-      padding: 0;
-      margin: 28px 0 36px;
-    }
-
-    .conditions-list li {
-      position: relative;
-      padding-left: 40px;
-      margin-bottom: 18px;
+    .conditions-intro {
       font-size: 15px;
-      color: #2c3143;
-      line-height: 1.6;
-      transition: transform 0.2s ease;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 480px;
     }
 
-    .conditions-list li:hover {
-      transform: translateX(4px);
+    .guidelines-grid {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 36px;
     }
 
-    .conditions-list li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 2px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--purple-soft);
-      border: 1px solid rgba(123,97,255,0.12);
+    .guideline-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm, 12px);
       transition: all 0.3s ease;
     }
 
-    .conditions-list li:hover::before {
-      background: rgba(123,97,255,0.15);
-      border-color: rgba(123,97,255,0.25);
+    .guideline-card:hover {
+      border-color: var(--line-bold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      transform: translateX(4px);
     }
 
-    .conditions-list li::after {
-      content: "✓";
-      position: absolute;
-      left: 7px;
-      top: 2px;
-      font-size: 12px;
-      color: var(--purple);
+    .guideline-icon {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
       font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .guideline-icon.do {
+      background: #eafff0;
+      color: #0a8a3a;
+    }
+
+    .guideline-icon.dont {
+      background: #ffeaea;
+      color: #c62828;
+    }
+
+    .guideline-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #2c3143;
+    }
+
+    .guideline-text strong {
+      color: var(--navy);
     }
 
     .conditions-visual {
@@ -787,11 +951,31 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .info-bar::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123,97,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .info-bar-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
     .info-title {
       font-size: clamp(30px, 3.5vw, 52px);
-      margin-bottom: 60px;
       max-width: 600px;
       color: var(--navy);
+      flex-shrink: 0;
     }
 
     .info-title .gradient-text {
@@ -801,17 +985,24 @@
       background-clip: text;
     }
 
+    .info-bar-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 380px;
+    }
+
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: 1fr 1.2fr 0.9fr;
+      gap: 20px;
     }
 
     .info-card {
       background: var(--bg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 40px 36px;
+      padding: 32px 28px;
       transition: all 0.35s ease;
       position: relative;
       overflow: hidden;
@@ -832,7 +1023,7 @@
     .info-card:hover {
       background: var(--surface);
       border-color: var(--line-bold);
-      transform: translateY(-6px);
+      transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(0,0,0,0.04);
     }
 
@@ -840,43 +1031,224 @@
       opacity: 1;
     }
 
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .info-card-icon {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--orange-soft);
+      flex-shrink: 0;
+    }
+
+    .info-card-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
     .info-card-label {
       font-family: "DM Mono", monospace;
       font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted-light);
-      margin-bottom: 18px;
     }
 
-    .info-card .flag {
-      font-size: 48px;
-      line-height: 1;
+    /* Countries */
+    .countries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
 
-    .info-card .chips {
+    .country-item {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .info-card .chip {
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      min-width: 0;
       background: var(--surface);
-      color: var(--muted);
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-size: 13px;
-      font-weight: 600;
+      border-radius: 10px;
       transition: all 0.25s ease;
     }
 
-    .info-card .chip:hover {
-      background: var(--orange-soft);
-      border-color: rgba(244,122,52,0.2);
-      color: var(--orange);
+    .country-item.featured {
+      border-color: var(--purple-soft);
+      background: linear-gradient(135deg, var(--surface), rgba(123, 97, 255, 0.03));
+    }
+
+    .country-item:hover {
+      border-color: var(--line-bold);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .country-item .flag {
+      font-size: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .country-item .name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .country-item .badge {
+      margin-left: auto;
+      flex-shrink: 0;
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--purple-soft);
+      color: var(--purple);
+    }
+
+    /* Community size */
+    .tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tier-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .tier-item:hover {
+      border-color: var(--line-bold);
+      transform: translateX(3px);
+    }
+
+    .tier-dot {
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tier-dot.lg { width: 14px; height: 14px; }
+
+    .tier-info {
+      flex: 1;
+    }
+
+    .tier-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    .tier-range {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      color: var(--muted-light);
+      letter-spacing: 0.02em;
+    }
+
+    .tier-bar {
+      width: 80px;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--line);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .tier-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    /* Categories */
+    .cat-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .cat-item:hover {
+      border-color: var(--line-bold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .cat-emoji {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .cat-emoji svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    .cat-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .cat-tag {
+      margin-left: auto;
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--orange-soft);
+      color: var(--orange);
     }
 
     /* ============================
@@ -1097,6 +1469,14 @@
       .join-grid {
         gap: 60px;
       }
+
+      .platforms-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 980px) {
@@ -1106,6 +1486,10 @@
       .join-grid,
       .info-grid {
         grid-template-columns: 1fr;
+      }
+
+      .platforms-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .hero {
@@ -1232,8 +1616,46 @@
         padding: 32px 28px;
       }
 
+      .platforms-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .countries-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .country-item {
+        padding: 12px 14px;
+        gap: 10px;
+      }
+
+      .country-item .flag {
+        font-size: 20px;
+      }
+
+      .country-item .name {
+        font-size: 13px;
+      }
+
+      .platform-card svg {
+        width: 40px;
+        height: 40px;
+      }
+
+      .platform-card {
+        padding: 28px 16px 24px;
+      }
+
       .hero-shape.h1 { width: 90px; height: 90px; top: -20px; left: -20px; }
       .hero-shape.h3 { width: 120px; height: 120px; bottom: -30px; left: -30px; }
+    }
+
+    @media (max-width: 420px) {
+      .platforms-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
@@ -1332,21 +1754,142 @@
     </div>
   </section>
 
+  <!-- ========== PLATFORMS ========== -->
+  <section class="platforms">
+    <div class="container">
+      <div class="label-mono"><span>//</span> Platforms</div>
+      <h2 class="section-title">CREATE ON <span class="gradient-text">YOUR TERMS</span></h2>
+      <p class="platforms-sub">
+        Reach your audience where they are. We support content creation across
+        all major social platforms — each with tailored tools for your craft.
+      </p>
+      <div class="platforms-grid">
+        <div class="platform-card" style="--color:#e1306c">
+          <div class="platform-icon">
+            <svg viewBox="0 0 264.583 264.583" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="ig-a" cx="158.429" cy="578.088" r="52.352" gradientTransform="matrix(0 -4.03418 4.28018 0 -2332.227 942.236)"><stop offset="0" stop-color="#fc0"/><stop offset=".124" stop-color="#fc0"/><stop offset=".567" stop-color="#fe4a05"/><stop offset=".694" stop-color="#ff0f3f"/><stop offset="1" stop-color="#fe0657" stop-opacity="0"/></radialGradient>
+                <radialGradient id="ig-b" cx="172.615" cy="600.692" r="65" gradientTransform="matrix(.67441 -1.16203 1.51283 .87801 -814.366 -47.835)"><stop offset="0" stop-color="#fc0"/><stop offset="1" stop-color="#fc0" stop-opacity="0"/></radialGradient>
+                <radialGradient id="ig-c" cx="144.012" cy="51.337" r="67.081" gradientTransform="matrix(-2.3989 .67549 -.23008 -.81732 464.996 -26.404)"><stop offset="0" stop-color="#780cff"/><stop offset="1" stop-color="#820bff" stop-opacity="0"/></radialGradient>
+                <radialGradient id="ig-d" cx="199.788" cy="628.438" r="52.352" gradientTransform="matrix(-3.10797 .87652 -.6315 -2.23914 1345.65 1374.198)"><stop offset="0" stop-color="#ff005f"/><stop offset="1" stop-color="#fc01d8"/></radialGradient>
+              </defs>
+              <path fill="url(#ig-d)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/>
+              <path fill="url(#ig-a)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/>
+              <path fill="url(#ig-b)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/>
+              <path fill="url(#ig-c)" d="M204.15 18.143c-55.23 0-71.383.057-74.523.317-11.334.943-18.387 2.728-26.07 6.554-5.922 2.942-10.592 6.351-15.201 11.13-8.394 8.716-13.481 19.439-15.323 32.184-.895 6.188-1.156 7.45-1.209 39.056-.02 10.536 0 24.4 0 42.999 0 55.2.062 71.341.326 74.476.916 11.032 2.645 17.973 6.308 25.565 7 14.533 20.37 25.443 36.12 29.514 5.453 1.404 11.476 2.178 19.208 2.544 3.277.142 36.669.244 70.081.244 33.413 0 66.826-.04 70.02-.203 8.954-.422 14.153-1.12 19.901-2.606 15.852-4.09 28.977-14.838 36.12-29.575 3.591-7.409 5.412-14.614 6.236-25.07.18-2.28.255-38.626.255-74.924 0-36.304-.082-72.583-.26-74.863-.835-10.625-2.656-17.77-6.364-25.32-3.042-6.182-6.42-10.799-11.324-15.519-8.752-8.361-19.455-13.45-32.21-15.29-6.18-.894-7.41-1.158-39.033-1.213z" transform="translate(-71.816 -18.143)"/>
+              <path fill="#fff" d="M132.345 33.973c-26.716 0-30.07.117-40.563.594-10.472.48-17.62 2.136-23.876 4.567-6.47 2.51-11.958 5.87-17.426 11.335-5.472 5.464-8.834 10.948-11.354 17.412-2.44 6.252-4.1 13.397-4.57 23.858-.47 10.486-.593 13.838-.593 40.535 0 26.697.119 30.037.594 40.522.482 10.465 2.14 17.609 4.57 23.859 2.515 6.465 5.876 11.95 11.346 17.414 5.466 5.468 10.955 8.834 17.42 11.345 6.26 2.431 13.41 4.088 23.881 4.567 10.493.477 13.844.594 40.559.594 26.719 0 30.061-.117 40.555-.594 10.472-.48 17.63-2.136 23.888-4.567 6.468-2.51 11.948-5.877 17.414-11.345 5.472-5.464 8.834-10.949 11.354-17.412 2.419-6.252 4.079-13.398 4.57-23.858.472-10.486.595-13.828.595-40.525s-.123-30.047-.594-40.533c-.492-10.465-2.152-17.608-4.57-23.858-2.521-6.466-5.883-11.95-11.355-17.414-5.472-5.468-10.944-8.827-17.42-11.335-6.271-2.431-13.424-4.088-23.897-4.567-10.493-.477-13.834-.594-40.558-.594zm-8.825 17.715c2.62-.004 5.542 0 8.825 0 26.266 0 29.38.094 39.752.565 9.591.438 14.797 2.04 18.264 3.385 4.591 1.782 7.864 3.912 11.305 7.352 3.443 3.44 5.575 6.717 7.362 11.305 1.346 3.46 2.951 8.663 3.388 18.247.47 10.363.573 13.475.573 39.71 0 26.233-.102 29.346-.573 39.709-.44 9.584-2.042 14.786-3.388 18.247-1.783 4.587-3.919 7.854-7.362 11.292-3.443 3.441-6.712 5.57-11.305 7.352-3.463 1.352-8.673 2.95-18.264 3.388-10.37.47-13.486.573-39.752.573-26.268 0-29.38-.102-39.751-.573-9.592-.443-14.797-2.044-18.267-3.39-4.59-1.781-7.87-3.911-11.313-7.352-3.443-3.44-5.574-6.709-7.362-11.298-1.346-3.461-2.95-8.663-3.387-18.247-.472-10.363-.566-13.476-.566-39.726s.094-29.347.566-39.71c.438-9.584 2.04-14.786 3.387-18.25 1.783-4.588 3.919-7.865 7.362-11.305 3.443-3.441 6.722-5.57 11.313-7.357 3.468-1.351 8.675-2.949 18.267-3.389 9.075-.41 12.592-.532 30.926-.553zm61.337 16.322c-6.518 0-11.805 5.277-11.805 11.792 0 6.512 5.287 11.796 11.805 11.796 6.517 0 11.804-5.284 11.804-11.796 0-6.513-5.287-11.796-11.805-11.796zm-52.512 13.782c-27.9 0-50.519 22.603-50.519 50.482 0 27.879 22.62 50.471 50.52 50.471s50.51-22.592 50.51-50.471c0-27.879-22.613-50.482-50.513-50.482zm0 17.715c18.11 0 32.792 14.67 32.792 32.767 0 18.096-14.683 32.767-32.792 32.767-18.11 0-32.791-14.671-32.791-32.767 0-18.098 14.68-32.767 32.791-32.767z"/>
+            </svg>
+          </div>
+          <span class="platform-name">Instagram</span>
+          <span class="platform-type">Photo & Video</span>
+          <span class="platform-metric">2B+</span>
+          <span class="platform-metric-sub">Monthly active users</span>
+        </div>
+
+        <div class="platform-card" style="--color:#fe2c55">
+          <div class="platform-icon">
+            <svg viewBox="0 0 352.28 398.67" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#25f4ee" d="M137.17 156.98v-15.56c-5.34-.73-10.76-1.18-16.29-1.18C54.23 140.24 0 194.47 0 261.13c0 40.9 20.43 77.09 51.61 98.97-20.12-21.6-32.46-50.53-32.46-82.31 0-65.7 52.69-119.28 118.03-120.81Z"/>
+              <path fill="#25f4ee" d="M140.02 333c29.74 0 54-23.66 55.1-53.13l.11-263.2h48.08c-1-5.41-1.55-10.97-1.55-16.67h-65.67l-.11 263.2c-1.1 29.47-25.36 53.13-55.1 53.13-9.24 0-17.95-2.31-25.61-6.34 7.83 13.16 22.15 22.01 38.78 22.01Z"/>
+              <path fill="#25f4ee" d="M333.13 106V91.37c-18.34 0-35.43-5.45-49.76-14.8 12.76 14.65 30.09 25.22 49.76 29.43Z"/>
+              <path fill="#fe2c55" d="M283.38 76.57c-13.98-16.05-22.47-37-22.47-59.91h-17.59c4.63 25.02 19.48 46.49 40.06 59.91Z"/>
+              <path fill="#fe2c55" d="M120.88 205.92c-30.44 0-55.21 24.77-55.21 55.21 0 21.2 12.03 39.62 29.6 48.86-6.55-9.08-10.45-20.18-10.45-32.2 0-30.44 24.77-55.21 55.21-55.21 5.68 0 11.13.94 16.29 2.55v-67.05c-5.34-.73-10.76-1.18-16.29-1.18-.96 0-1.9.05-2.85.07v51.49c-5.16-1.61-10.61-2.55-16.29-2.55Z"/>
+              <path fill="#fe2c55" d="M333.13 106v51.04c-34.05 0-65.61-10.89-91.37-29.38v133.47c0 66.66-54.23 120.88-120.88 120.88-25.76 0-49.64-8.12-69.28-21.91 22.08 23.71 53.54 38.57 88.42 38.57 66.66 0 120.88-54.23 120.88-120.88V144.33c25.76 18.49 57.32 29.38 91.37 29.38v-65.68c-6.57 0-12.97-.71-19.14-2.03Z"/>
+              <path d="M241.76 261.13V127.66c25.76 18.49 57.32 29.38 91.37 29.38V106c-19.67-4.21-37-14.77-49.76-29.43-20.58-13.42-35.43-34.88-40.06-59.91h-48.08l-.11 263.2c-1.1 29.47-25.36 53.13-55.1 53.13-18.42 0-34.72-9.1-44.75-23.01-17.57-9.25-29.6-27.67-29.6-48.86 0-30.44 24.77-55.21 55.21-55.21 5.68 0 11.13.94 16.29 2.55v-51.49C71.83 158.5 19.14 212.08 19.14 277.78c0 31.78 12.34 60.71 32.46 82.31C71.23 373.87 95.12 382 120.88 382c66.65 0 120.88-54.23 120.88-120.88Z"/>
+            </svg>
+          </div>
+          <span class="platform-name">TikTok</span>
+          <span class="platform-type">Short Video</span>
+          <span class="platform-metric">1B+</span>
+          <span class="platform-metric-sub">Monthly active users</span>
+        </div>
+
+        <div class="platform-card" style="--color:#ff0000">
+          <div class="platform-icon">
+            <svg viewBox="0 0 256 180" xmlns="http://www.w3.org/2000/svg">
+              <path fill="red" d="M250.346 28.075A32.18 32.18 0 0 0 227.69 5.418C207.824 0 127.87 0 127.87 0S47.912.164 28.046 5.582A32.18 32.18 0 0 0 5.39 28.24c-6.009 35.298-8.34 89.084.165 122.97a32.18 32.18 0 0 0 22.656 22.657c19.866 5.418 99.822 5.418 99.822 5.418s79.955 0 99.82-5.418a32.18 32.18 0 0 0 22.657-22.657c6.338-35.348 8.291-89.1-.164-123.134Z"/>
+              <path fill="#FFF" d="m102.421 128.06 66.328-38.418-66.328-38.418z"/>
+            </svg>
+          </div>
+          <span class="platform-name">YouTube</span>
+          <span class="platform-type">Long Video</span>
+          <span class="platform-metric">2.5B+</span>
+          <span class="platform-metric-sub">Monthly active users</span>
+        </div>
+
+        <div class="platform-card" style="--color:#9146ff">
+          <div class="platform-icon">
+            <svg viewBox="0 0 2400 2800" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#fff" d="m2200 1300-400 400h-400l-350 350v-350H600V200h1600z"/>
+              <g fill="#9146ff">
+                <path d="M500 0 0 500v1800h600v500l500-500h400l900-900V0H500zm1700 1300-400 400h-400l-350 350v-350H600V200h1600v1100z"/>
+                <path d="M1700 550h200v600h-200zm-550 0h200v600h-200z"/>
+              </g>
+            </svg>
+          </div>
+          <span class="platform-name">Twitch</span>
+          <span class="platform-type">Live Stream</span>
+          <span class="platform-metric">140M+</span>
+          <span class="platform-metric-sub">Monthly active users</span>
+        </div>
+
+        <div class="platform-card" style="--color:#000000">
+          <div class="platform-icon">
+            <svg viewBox="0 0 256 209" xmlns="http://www.w3.org/2000/svg">
+              <path d="M256 25.45c-9.42 4.177-19.542 7-30.166 8.27 10.845-6.5 19.172-16.793 23.093-29.057a105.183 105.183 0 0 1-33.351 12.745C205.995 7.201 192.346.822 177.239.822c-29.006 0-52.523 23.516-52.523 52.52 0 4.117.465 8.125 1.36 11.97-43.65-2.191-82.35-23.1-108.255-54.876-4.52 7.757-7.11 16.78-7.11 26.404 0 18.222 9.273 34.297 23.365 43.716a52.312 52.312 0 0 1-23.79-6.57c-.003.22-.003.44-.003.661 0 25.447 18.104 46.675 42.13 51.5a52.592 52.592 0 0 1-23.718.9c6.683 20.866 26.08 36.05 49.062 36.475-17.975 14.086-40.622 22.483-65.228 22.483-4.24 0-8.42-.249-12.529-.734 23.243 14.902 50.85 23.597 80.51 23.597 96.607 0 149.434-80.031 149.434-149.435 0-2.278-.05-4.543-.152-6.795A106.748 106.748 0 0 0 256 25.45" fill="#000"/>
+            </svg>
+          </div>
+          <span class="platform-name">X (Twitter)</span>
+          <span class="platform-type">Micro Content</span>
+          <span class="platform-metric">550M+</span>
+          <span class="platform-metric-sub">Monthly active users</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CONDITIONS ========== -->
   <section class="conditions">
     <div class="container conditions-grid">
       <div>
         <div class="label-mono"><span>//</span> Guidelines</div>
         <h2 class="light-title"><span class="gradient-text">PARTICIPATION</span> CONDITIONS</h2>
-        <div class="subhead">Do's & Don'ts</div>
-        <div class="subhead-sm">Do's ✓</div>
-        <ul class="conditions-list">
-          <li>Demonstrate products clearly and highlight real problems they solve.</li>
-          <li>Avoid showing competing products or unrelated visible branding.</li>
-          <li>Ensure Dyson products appear in at least 50% of the content time.</li>
-          <li>Keep the style natural, authentic, and aligned with your personality.</li>
-          <li>Share honest feedback while maintaining a premium presentation.</li>
-        </ul>
+        <p class="conditions-intro">
+          Help us maintain a premium brand experience. These guidelines ensure
+          your content stays on-brand while giving you creative freedom.
+        </p>
+        <div class="guidelines-grid">
+          <div class="guideline-card">
+            <div class="guideline-icon do">✓</div>
+            <div class="guideline-text">
+              <strong>Showcase the product clearly</strong> — highlight real problems Dyson products solve in authentic, everyday scenarios.
+            </div>
+          </div>
+          <div class="guideline-card">
+            <div class="guideline-icon do">✓</div>
+            <div class="guideline-text">
+              <strong>Keep it exclusive</strong> — avoid showing competing products or unrelated visible branding in your content.
+            </div>
+          </div>
+          <div class="guideline-card">
+            <div class="guideline-icon do">✓</div>
+            <div class="guideline-text">
+              <strong>Feature Dyson prominently</strong> — ensure Dyson products appear in at least 50% of your content duration.
+            </div>
+          </div>
+          <div class="guideline-card">
+            <div class="guideline-icon do">✓</div>
+            <div class="guideline-text">
+              <strong>Stay authentic</strong> — keep your style natural and aligned with your personality while maintaining premium quality.
+            </div>
+          </div>
+          <div class="guideline-card">
+            <div class="guideline-icon do">✓</div>
+            <div class="guideline-text">
+              <strong>Share honest feedback</strong> — genuine opinions build trust. Present your experience in a credible, aspirational way.
+            </div>
+          </div>
+        </div>
         <a href="#" class="btn btn-primary">Apply to the program</a>
       </div>
 
@@ -1366,27 +1909,149 @@
   <section class="info-bar">
     <div class="container">
       <div class="label-mono"><span>//</span> Eligibility</div>
-      <h2 class="info-title"><span class="gradient-text">PARTICIPATION</span> CONDITIONS</h2>
+      <div class="info-bar-intro">
+        <h2 class="info-title"><span class="gradient-text">PARTICIPATION</span> CONDITIONS</h2>
+        <p class="info-bar-desc">
+          Open to creators across Europe. Requirements are tailored to match
+          your community size and content focus.
+        </p>
+      </div>
       <div class="info-grid">
         <div class="info-card">
-          <div class="info-card-label">Eligible countries</div>
-          <div class="flag">🇫🇷</div>
-        </div>
-
-        <div class="info-card">
-          <div class="info-card-label">Community size</div>
-          <div class="chips">
-            <span class="chip">Middle, 30k &lt; 100k</span>
-            <span class="chip">Micro, 10k &lt; 30k</span>
-            <span class="chip">Nano, 1k &lt; 10k</span>
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f47a34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="info-card-label">Eligible countries</div>
+          </div>
+          <div class="countries-grid">
+            <div class="country-item featured">
+              <span class="flag">🇫🇷</span>
+              <span class="name">France</span>
+              <span class="badge">HQ</span>
+            </div>
+            <div class="country-item">
+              <span class="flag">🇬🇧</span>
+              <span class="name">UK</span>
+            </div>
+            <div class="country-item">
+              <span class="flag">🇩🇪</span>
+              <span class="name">Germany</span>
+            </div>
+            <div class="country-item">
+              <span class="flag">🇪🇸</span>
+              <span class="name">Spain</span>
+            </div>
+            <div class="country-item">
+              <span class="flag">🇮🇹</span>
+              <span class="name">Italy</span>
+            </div>
+            <div class="country-item">
+              <span class="flag">🇧🇪</span>
+              <span class="name">Belgium</span>
+            </div>
           </div>
         </div>
 
         <div class="info-card">
-          <div class="info-card-label">Activity categories</div>
-          <div class="chips">
-            <span class="chip">Sport</span>
-            <span class="chip">Santé</span>
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f47a34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="14" width="4" height="7"/>
+                <rect x="10" y="9" width="4" height="12"/>
+                <rect x="17" y="4" width="4" height="17"/>
+              </svg>
+            </div>
+            <div class="info-card-label">Community size</div>
+          </div>
+          <div class="tier-list">
+            <div class="tier-item">
+              <div class="tier-dot lg" style="background:#7b61ff"></div>
+              <div class="tier-info">
+                <div class="tier-name">Middle</div>
+                <div class="tier-range">30k – 100k</div>
+              </div>
+              <div class="tier-bar">
+                <div class="tier-bar-fill" style="width:100%;background:#7b61ff"></div>
+              </div>
+            </div>
+            <div class="tier-item">
+              <div class="tier-dot" style="background:#f47a34"></div>
+              <div class="tier-info">
+                <div class="tier-name">Micro</div>
+                <div class="tier-range">10k – 30k</div>
+              </div>
+              <div class="tier-bar">
+                <div class="tier-bar-fill" style="width:60%;background:#f47a34"></div>
+              </div>
+            </div>
+            <div class="tier-item">
+              <div class="tier-dot" style="background:#9499ad"></div>
+              <div class="tier-info">
+                <div class="tier-name">Nano</div>
+                <div class="tier-range">1k – 10k</div>
+              </div>
+              <div class="tier-bar">
+                <div class="tier-bar-fill" style="width:30%;background:#9499ad"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f47a34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <circle cx="12" cy="12" r="8"/>
+                <circle cx="12" cy="12" r="1"/>
+              </svg>
+            </div>
+            <div class="info-card-label">Activity categories</div>
+          </div>
+          <div class="cat-grid">
+            <div class="cat-item">
+              <div class="cat-emoji">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <span class="cat-name">Sport</span>
+              <span class="cat-tag">Active</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-emoji">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <span class="cat-name">Santé / Wellness</span>
+              <span class="cat-tag">Active</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-emoji">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <span class="cat-name">Beauty</span>
+              <span class="cat-tag">New</span>
+            </div>
+            <div class="cat-item">
+              <div class="cat-emoji">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </div>
+              <span class="cat-name">Lifestyle</span>
+              <span class="cat-tag">New</span>
+            </div>
           </div>
         </div>
       </div>
